@@ -23,8 +23,8 @@ export default function FetchPostsPage() {
 
         const data: Post[] = await response.json();
         setPosts(data);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
+      } catch (err: unknown) { // Use `unknown` instead of `any`
+        if (err instanceof Error) { // Check if `err` is an instance of `Error`
           setError(err.message);
         } else {
           setError('An unknown error occurred');
@@ -42,6 +42,9 @@ export default function FetchPostsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+    <Link href='/'>
+    <h1 className="text-2xl font-bold mb-4 text-green-600">Home</h1>
+    </Link>
       <h1 className="text-2xl font-bold mb-4">Posts</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {posts.map((post) => (
