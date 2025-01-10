@@ -23,8 +23,12 @@ export default function FetchPostsPage() {
 
         const data: Post[] = await response.json();
         setPosts(data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
       } finally {
         setLoading(false);
       }
@@ -44,7 +48,6 @@ export default function FetchPostsPage() {
           <Link key={post.id} href={`/posts/${post.id}`} className="border rounded p-4 shadow hover:bg-gray-100 transition">
               <h2 className="text-xl font-semibold">{post.title}</h2>
               <p>{post.body.slice(0, 100)}...</p>
-            
           </Link>
         ))}
       </div>

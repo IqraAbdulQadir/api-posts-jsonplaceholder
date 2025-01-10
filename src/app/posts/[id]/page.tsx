@@ -13,7 +13,8 @@ async function fetchPost(id: string): Promise<Post | null> {
   return response.json();
 }
 
-export default async function PostPage({ params }: { params: { id: string } }) {
+export default async function PostPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const post = await fetchPost(params.id);
 
   if (!post) {
